@@ -8,8 +8,8 @@
 </head>
 <body>
 <?php
-	if(empty($_POST['first_name']) || empty($_POST['last_name']))
-		echo "<p>You must enter your first and last name! Click your browser's back button to return to the Guest Book form.</p>";
+	if(empty($_POST['friendly_staff']) || empty($_POST['luggage_storage']))
+		echo "<p>You are missing some survey data! Click your browser's back button to return to the Guest Book form.</p>";
 	else {
 		$DBConnect = @mysql_connect("localhost", "root", "root");
 		if ($DBConnect === FALSE)
@@ -35,15 +35,15 @@
  	$SQLstring = "SHOW TABLES LIKE '$TableName'";
  	$QueryResult = @mysql_query($SQLstring, $DBConnect);
  	if (mysql_num_rows($QueryResult) == 0) {
- 		$SQLstring = "CREATE TABLE $TableName (CountID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, last_name VARCHAR(40), first_name VARCHAR(40))";
+ 		$SQLstring = "CREATE TABLE $TableName (CountID SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, luggage_storage VARCHAR(40), friendly_staff VARCHAR(40))";
  		$QueryResult = @mysql_query($SQLstring, $DBConnect);
  		if ($QueryResult === FALSE)
  			echo "<p>Unable to create the table.</p>"
  			. "<p>Error code " . mysql_errno($DBConnect)
  			. ": " . mysql_error($DBConnect) . "</p>";
  	}
- 	$LastName = stripslashes($_POST['last_name']);
- 	$FirstName = stripslashes($_POST['first_name']);
+ 	$LastName = stripslashes($_POST['luggage_storage']);
+ 	$FirstName = stripslashes($_POST['friendly_staff']);
  	$SQLstring = "INSERT INTO $TableName VALUES(NULL, '$LastName' , ;$FirstName')";
  	$QueryResult = @mysql_query($SQLString, $DBConnect);
  	if ($QueryResult === FALSE)
@@ -51,7 +51,7 @@
  		. "<p>Error code " . mysql_errno($DBConnect)
  		. ":" . mysql_error($DBConnect) . "</p>";
  		else
- 			echo "<h1>Thank you for signing out Guest Book!</h1>";
+ 			echo "<h1>Thank you for flying with us!</h1>";
  	
  	mysql_close($DBConnect);
  }

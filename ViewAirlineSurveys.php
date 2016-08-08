@@ -17,20 +17,20 @@
 	else {
 		$DBName = "guestbook";
 		if (!@mysql_select_db($DBName, $DBConnect))
-			echo "<p>There are no entries in the guest book!</p>";
+			echo "<p>There are no past surveys!</p>";
 	else {
 		$TableName = "visitors";
 		$SQLstring = "SELECT * FROM $TableName";
 		$QueryResult = @mysql_query($SQLstring, $DBConnect);
 		if (mysql_num_rows($QueryResult) == 0)
-			echo "<p>There are no entries in the guest book!</p>";
+			echo "<p>There are no past surveys!</p>";
 	else {
 		echo "<p>The following visitors have signed our guest book:</p>";
 		echo "<table width='100%' border='1'>";
-		echo "<tr><th>First Name</th><th>Last Name</th></tr>";
+		echo "<tr><th>Friendliness of customer staff</th><th>Space for luggage storage</th></tr>";
 		while (($Row = mysql_fetch_assoc($QueryResult)) !== FALSE) {
-			echo "<tr><td>{$Row['first_name']}</td>";
-			echo "<td>{$Row['last_name']}</td></tr>";
+			echo "<tr><td>{$Row['friendly_staff']}</td>";
+			echo "<td>{$Row['luggage_storage']}</td></tr>";
 	}
 	mysql_free_result($QueryResult);
 	}
